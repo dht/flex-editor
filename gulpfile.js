@@ -8,6 +8,7 @@ var replace = require('gulp-replace');
 var bump = require('gulp-bump');
 var shell = require('gulp-shell')
 var p = require('./package.json')
+var webpack = require('webpack-stream');
 
 gulp.task('clean', function () {
 	return del([
@@ -31,6 +32,24 @@ gulp.task('bump', function(){
 	return gulp.src('./package.json')
 		.pipe(bump({type:'patch'}))
 		.pipe(gulp.dest('./'));
+});
+
+gulp.task('cleanDocs', function () {
+    return del([
+        'docs/'
+    ]);
+});
+
+gulp.task('copyDocs', function () {
+    return gulp
+        .src(['app/index.html'], {base: './app'})
+        .pipe(gulp.dest('docs'));
+});
+
+gulp.task('webpack', function () {
+    return gulp.src('./libs/base.js')
+        .pipe(webpack( require('./webpack.config.production.js') ))
+        .pipe(gulp.dest('docs/static/'));
 });
 
 /* global gulp */
@@ -61,12 +80,13 @@ gulp.task('set-prod-node-env', function() {
 });
 
 gulp.task('build', ['set-prod-node-env'], function(callback) {
-	runSequence(
-		'clean',
-		'bump',
-		'babel',
-		['copy', 'copyIndexOriginal'],
-		callback);
+    runSequence(
+        ['clean', 'cleanDocs'],
+        'bump',
+        'babel',
+        'webpack',
+        ['copy', 'copyDocs', 'copyIndexOriginal'],
+        callback);
 });
 
 gulp.task('deploy', function(callback) {

@@ -1,6 +1,6 @@
 {
   "name": "flex-editor",
-  "version": "0.3.5",
+  "version": "0.3.8",
   "description": "A react layout WYSWYG editor",
   "main": "index.js",
   "module": "./index.js",
@@ -53,7 +53,8 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.8.4",
-    "webpack-hot-middleware": "^2.13.2"
+    "webpack-hot-middleware": "^2.13.2",
+    "webpack-stream": "^3.2.0"
   },
   "dependencies": {
     "@quickstudio/flex-editor": "^0.2.97",
