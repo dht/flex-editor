@@ -1,5 +1,5 @@
 # Flex-Editor
-A complete layout editor for[React](http://facebook.github.io/react/).
+A layout editor for[React](http://facebook.github.io/react/).
 
 ## Installation
 
