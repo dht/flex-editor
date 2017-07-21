@@ -57,7 +57,6 @@
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
-    "@quickstudio/flex-editor": "^0.2.97",
     "clone": "^2.1.1",
     "infinite-surface": "^0.0.28",
     "insert-css": "^2.0.0",
