@@ -1,5 +1,6 @@
 import React from 'react';
 import FlexEditor from '../../src/FlexEditor';
+import {listenToState_adhock, stopToListen} from '../utils/elements_api';
 
 import './App.scss';
 
@@ -46,7 +47,10 @@ export default class App extends React.Component {
                     fonts={fonts}
                     width={1000}
                     height={600}
-                    showDataButtons={true}/>
+                    showDataButtons={true}
+                    subscribe={listenToState_adhock}
+                    unsubscribe={stopToListen}
+                />
             </div>
         );
     }

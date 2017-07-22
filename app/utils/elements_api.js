@@ -6,10 +6,12 @@ let snippetsRef,
 	snippetRef,
 	versionRef,
 	versionsInfoRef,
+    snippetsAdhocRef,
 	stateRef;		// All permissions
 
 export const configureFirebase = () => {
     snippetsRef = mainApp.database().ref("snippets");
+    snippetsAdhocRef = mainApp.database().ref("bins");
 }
 
 export const configureSnippet = (path) => {
@@ -23,15 +25,11 @@ export const configureSnippet = (path) => {
 
     stateRef = snippetRef.child('workingCopy');
     versionsInfoRef = snippetRef.child('versionsInfo');
-
-	console.log('stateRef.ref.toString() ->', stateRef.ref.toString());
 }
 
 export const configureVersion = (version) => {
 
     versionRef = snippetRef.child(`v${version}`);
-
-	console.log('stateRef.ref.toString() ->', stateRef.ref.toString());
 }
 
 export const clearScreen = () => {
@@ -100,6 +98,23 @@ export const publishVersion = (version, state, whatsNew) => {
 		state: state,
 		whatsNew: whatsNew
 	});
+}
+
+const listen = (ref, callback) => {
+    return ref.on("value", snapshot => {
+        const val = snapshot ? snapshot.val() : {};
+        callback.call(this, val, ref);
+    })
+}
+
+export const stopToListen = (ref, callback) => {
+    return ref.off("value");
+}
+
+export const listenToState_adhock = (id, callback) => {
+    const _stateRef = snippetsAdhocRef.child(id).child('workingCopy');
+
+    return listen(_stateRef, callback);
 }
 
 

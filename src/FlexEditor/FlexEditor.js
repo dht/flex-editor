@@ -239,6 +239,8 @@ export default class FlexEditor extends React.Component {
                             readonly={readonly}
                             screenWidth={width}
                             screenHeight={height}
+                            subscribe={this.props.subscribe}
+                            unsubscribe={this.props.unsubscribe}
                         />
                     </div>
                 </InfiniteSurface>

@@ -90,7 +90,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
             dispatch(actions.addDivider());
             dispatch(refreshSelector(20));
-		}
+		},
+        onAddSnippet: () => {
+            if (ownProps.onAddSnippet) {
+                ownProps.onAddSnippet();
+                return;
+            }
+
+            dispatch(actions.addSnippet());
+            dispatch(refreshSelector(20));
+        }
 
 	}
 }

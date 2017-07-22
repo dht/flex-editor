@@ -586,6 +586,28 @@ export const addDivider = (data) => {
     }
 }
 
+export const addSnippet = (data) => {
+    return (dispatch, getState) => {
+
+        let flexState = getFlexState(getState());
+        let selection = getSelection(flexState);
+        let parent_id = getParentId(selection);
+        const maxOrder = getMaxOrder(flexState, parent_id);
+        const modeId = getModeId(flexState);
+
+        let action = addOrReplace(selection.selected_element_type, selection.selected_element_id, ElementTypes.SNIPPET, parent_id, {
+            order: maxOrder + 1,
+        }, {modeId: modeId, ...data})
+        let root_id = action.id;
+
+        dispatch(action);
+
+        dispatch(setSelectedElement(action.id, parent_id, action.elementType))
+
+        return Promise.resolve(root_id);
+    }
+}
+
 export const selectRoot = () => {
     return (dispatch, getState) => {
         const rootElement = treeOperations.root(getState());

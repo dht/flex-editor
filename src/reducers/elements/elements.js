@@ -1,4 +1,4 @@
-import undoable from 'redux-undo'
+import undoable, {excludeAction} from 'redux-undo'
 
 import {filterCopy as filter, find, mapElements as map} from '../../_utils/map';
 
@@ -142,7 +142,7 @@ export const data = (state, action) => {
 
             return newState;
 
-            case ActionTypes.APPLY_CLASS:
+        case ActionTypes.APPLY_CLASS:
 
             newState = {...state};
             newState.className = action.value;
@@ -262,7 +262,7 @@ export const element = (state, action) => {
             }
 
             // is it the father?
-            if (childIds.indexOf(action.id) >=0) {
+            if (childIds.indexOf(action.id) >= 0) {
                 state.childIds = state.childIds.filter(id => id !== action.id);
             }
 
@@ -417,7 +417,8 @@ export const elements = (state = {}, action) => {
 }
 
 const undoableElement = undoable(elements, {
-    limit: 20
+    limit: 20,
+    filter: excludeAction([ActionTypes.PREVIEW_STYLE, ActionTypes.PREVIEW_DATA, ActionTypes.SET_ELEMENTS])
 })
 
 export default undoableElement

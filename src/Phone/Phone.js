@@ -1,6 +1,9 @@
 import React from 'react'
 import Element from 'lpm-core/Element'
 import ElementSelector from '../ElementSelector'
+import insertCss from 'insert-css';
+
+insertCss('.disableInnerClicks {pointer-events: none;}');
 
 class Phone extends React.Component {
 
@@ -22,7 +25,10 @@ class Phone extends React.Component {
                 <Element id={ 1 }
                          statePath={ 'flexState/elements/present' }
                          onElementClick={this.props.onElementClick}
-                         onElementDblClick={this.props.onDoubleClick}/>
+                         onElementDblClick={this.props.onDoubleClick}
+                         subscribe={this.props.subscribe}
+                         unsubscribe={this.props.unsubscribe}
+                />
 
                 <ElementSelector readonly={this.props.readonly} appType={ this.props.appType } />
             </div>

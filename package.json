@@ -1,6 +1,6 @@
 {
   "name": "flex-editor",
-  "version": "0.3.8",
+  "version": "0.3.10",
   "description": "A react layout WYSWYG editor",
   "main": "index.js",
   "module": "./index.js",
@@ -60,7 +60,7 @@
     "clone": "^2.1.1",
     "infinite-surface": "^0.0.28",
     "insert-css": "^2.0.0",
-    "lpm-core": "^0.1.8",
+    "lpm-core": "^0.1.30",
     "material-ui": "^0.17.1",
     "material-ui-extensions": "^0.0.5",
     "project-dashboard": "0.0.15",

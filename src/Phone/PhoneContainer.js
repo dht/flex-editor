@@ -7,7 +7,7 @@ import {
     setSelectedElement,
     setElementRect
 } from '../reducers/elementSelection/elementSelection_actions'
-import {showAttributePopover} from '../reducers/appState/appState_actions'
+import {showAttributePopover, showPlaceholderPopover} from '../reducers/appState/appState_actions'
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -51,6 +51,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         onDoubleClick: (element_id, parent_id, element_type, ev) => {
             if (element_type === 'TEXT' || element_type === 'IMAGE') {
                 dispatch(showAttributePopover(true));
+            }
+            if (element_type === 'PLACEHOLDER') {
+                dispatch(showPlaceholderPopover(true));
             }
         }
     }

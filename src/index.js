@@ -29,6 +29,7 @@ import {
     applyClass,
     applyVars,
     applyData,
+    addSnippet,
 } from './reducers/elements/elements_actions';
 
 import {
@@ -54,6 +55,7 @@ export default {
     showSelection,
     addView,
     addElement,
+    addSnippet,
     setElements,
     resetScreen,
     setDataField,

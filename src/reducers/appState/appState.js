@@ -16,6 +16,7 @@ const initialState = {
     resolution: 1,
     stage: null,
     showAttributePopover: false,
+    showPlaceholderPopover: false,
     showDataButtons: false,
     showSelection: true,
     modeId: 0,
@@ -51,6 +52,7 @@ export const ActionTypes = {
     SET_VERSIONS_INFO: `${prefix}SET_VERSIONS_INFO`,
     ADD_VERSION_INFO: `${prefix}ADD_VERSION_INFO`,
     SHOW_ATTRIBUTE_POPOVER: `${prefix}SHOW_ATTRIBUTE_POPOVER`,
+    SHOW_PLACEHOLDER_POPOVER: `${prefix}SHOW_PLACEHOLDER_POPOVER`,
     SHOW_SELECTION: `${prefix}SHOW_SELECTION`,
     SET_COPIED_STYLE: `${prefix}SET_COPIED_STYLE`,
     SET_COPIED_ELEMENT: `${prefix}SET_COPIED_ELEMENT`,
@@ -159,6 +161,12 @@ export const appState = (state = initialState, action) => {
             return {
                 ...state,
                 showAttributePopover: action.value
+            }
+
+        case ActionTypes.SHOW_PLACEHOLDER_POPOVER:
+            return {
+                ...state,
+                showPlaceholderPopover: action.value
             }
 
         case ActionTypes.SHOW_DATA_BUTTONS:
