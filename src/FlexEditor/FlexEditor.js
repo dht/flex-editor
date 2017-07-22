@@ -202,11 +202,11 @@ export default class FlexEditor extends React.Component {
     }
 
     render() {
-        const {width = 320, height = 300, screenHeight, readonly} = this.props;
+        const {width = 320, height = 300, screenHeight, readonly, zoom} = this.props;
 
         const startingCanvasPosition = bigScreen ?
-            {x: 300, y: 160, zoom: 1.1} :
-            {x: 100, y: 100, zoom: 1.0};
+            {x: 300, y: 160, zoom: zoom || 1.1} :
+            {x: 100, y: 100, zoom: zoom || 1.0};
 
         return (
             <div style={styles.container}>
