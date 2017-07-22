@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
     const { appState } = state;
     const { direction, appType, stage } = appState;
 
-    const screenHeight = treeOperations.getRootHeight(state);
+    const screenHeight = treeOperations.getRootHeight(state, ownProps.screenHeight);
 
     return {
         direction,

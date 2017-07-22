@@ -81,9 +81,16 @@ gulp.task('set-prod-node-env', function() {
 
 gulp.task('build', ['set-prod-node-env'], function(callback) {
     runSequence(
-        ['clean', 'cleanDocs'],
+        ['clean'],
         'bump',
         'babel',
+        ['copy',  'copyIndexOriginal'],
+        callback);
+});
+
+gulp.task('buildDocs', ['set-prod-node-env'], function(callback) {
+    runSequence(
+        ['cleanDocs'],
         'webpack',
         ['copy', 'copyDocs', 'copyIndexOriginal'],
         callback);

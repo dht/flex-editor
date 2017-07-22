@@ -221,7 +221,8 @@ export const appState = (state = initialState, action) => {
                 ...state,
                 dataFieldModalOn: null,
                 styleFieldModalOn: null,
-                styleFieldModalCssField: ''
+                styleFieldModalCssField: '',
+                showPlaceholderPopover: null,
             }
 
         case ActionTypes.OPEN_DRAWER:

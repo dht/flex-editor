@@ -295,11 +295,11 @@ export const selectedElement = (state, elementSelection) => {
     return getItem(state.elements.present, elementSelection.id);
 }
 
-export const getRootHeight = (state) => {
+export const getRootHeight = (state, otherHeight) => {
     const _root = root(state) || {},
         style = _root.style || {};
 
-    return style.height || 548;
+    return style.height || otherHeight;
 }
 
 

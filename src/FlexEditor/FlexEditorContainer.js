@@ -16,7 +16,7 @@ const mapStateToProps = (state, ownProps) => {
 
     const selectedElement = treeOperations.getItem(state.elements.present, elementSelection.id) || {};
     const selectedElementParent = treeOperations.getItem(state.elements.present, selectedElement.parent_id) || {};
-    const screenHeight = treeOperations.getRootHeight(state);
+    const screenHeight = treeOperations.getRootHeight(state) || ownProps.height;
 
     return {
         screenHeight,
