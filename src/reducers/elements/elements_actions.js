@@ -12,6 +12,7 @@ import {getSelection, getMaxOrder, getModeId,} from './utils/elements_utils';
 import {setSelectedElement, refreshSelector} from '../elementSelection/elementSelection_actions';
 import {showDataFieldModal, showStyleFieldModal, addUIMessage} from '../appState/appState_actions';
 import {filterCopy as filter, firstChild} from '../../_utils/map'
+import {parseLoremPixel} from '../../_utils/loremPixel'
 import {transform_sketch} from '../../_utils/sketch'
 import {setCopiedStyle} from '../appState/appState_actions'
 import {setCopiedElementTree} from '../appState/appState_actions'
@@ -867,6 +868,26 @@ export const runActions = (snippet, targetParentId, maxOrder) => {
         bumpId();
     }
 
+}
+
+export const applyDataContentForCurrentElement = (data) => {
+    return (dispatch, getState) => {
+
+        const state = getFlexState(getState());
+        const {elementSelection} = state,
+            {id, rect} = elementSelection;
+
+        const selectedElement = treeOperations.getItem(state.elements.present, elementSelection.id) || {},
+            {elementType} = selectedElement;
+
+        if (elementType ===  ElementTypes.IMAGE) {
+            data.content = parseLoremPixel(data.content, Math.ceil(rect.width), Math.ceil(rect.height));
+        }
+
+        dispatch(applyData(id, data));
+        dispatch(refreshSelector(20));
+        dispatch(refreshSelector(500));
+    }
 }
 
 export const applyDataFieldForCurrentElement = (fieldName, fieldType) => {
