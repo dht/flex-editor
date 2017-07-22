@@ -1,6 +1,6 @@
 {
   "name": "flex-editor",
-  "version": "0.3.10",
+  "version": "0.3.12",
   "description": "A react layout WYSWYG editor",
   "main": "index.js",
   "module": "./index.js",

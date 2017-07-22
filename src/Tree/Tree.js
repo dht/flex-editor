@@ -83,6 +83,8 @@ export default class Tree extends React.Component {
                 return 'image';
             case 'VIEW':
                 return 'view_column';
+            case 'SNIPPET':
+                return 'extension';
         }
     }
 
