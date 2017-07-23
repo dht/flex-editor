@@ -27,7 +27,7 @@ const initialState = {
     dataFieldModalOn: false,
     styleFieldModalOn: false,
     styleFieldModalCssField: '',
-    drawerOpen: false,
+    drawerOpen: true,
     lastImageDrop: '',
     overlay: {
         show: true,
