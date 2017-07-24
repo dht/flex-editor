@@ -1,10 +1,9 @@
 import {connect} from 'react-redux'
 import InputData from './InputData'
-import {applyData, previewData, applyDataContentForCurrentElement} from '../reducers/elements/elements_actions'
+import actions from '../reducers/elements/elements_actions'
 import {showAttributePopover, showDataFieldModal} from '../reducers/appState/appState_actions'
-import { refreshSelector } from '../reducers/elementSelection/elementSelection_actions'
 import {getFlexState} from '../reducers/utils';
-import * as treeOperations from '../_utils/operations/tree-operations';
+import treeOperations from 'lpm-core/utils';
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -29,12 +28,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 	return {
 		applyDataToSelected: (content) => {
-			dispatch(applyDataContentForCurrentElement(content));
+			dispatch(actions.applyDataContentForCurrentElement(content));
 		},
 		previewDataInSelected: (data) => {
 			const {elementId} = ownProps;
 
-			dispatch(previewData(elementId, data));
+			dispatch(actions.previewData(elementId, data));
 		},
 		onDone: () => {
 			dispatch(showAttributePopover(false));

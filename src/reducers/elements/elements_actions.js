@@ -1,8 +1,8 @@
-import {ActionTypes} from './elements'
+import {ActionTypes} from 'lpm-core/reducers/elements/elements'
 
 import * as Config from '../../constants/Config';
-import actionOperations from '../../_utils/operations/action-operations';
-import * as treeOperations from '../../_utils/operations/tree-operations';
+import treeOperations from 'lpm-core/utils';
+import actions from 'lpm-core/reducers/elements/elements_actions';
 import ElementTypes from '../../constants/ElementTypes'
 import clone from 'clone';
 
@@ -17,245 +17,6 @@ import {transform_sketch} from '../../_utils/sketch'
 import {setCopiedStyle} from '../appState/appState_actions'
 import {setCopiedElementTree} from '../appState/appState_actions'
 
-/*
- ADD_ELEMENT
- REPLACE_ELEMENT
- CLEAR_ELEMENTS
- SET_ELEMENTS
- APPLY_DATA
- PREVIEW_DATA
- PREVIEW_STYLE
- APPLY_STYLE
- SWITCH_ELEMENTS_ORDER
- DELETE_ELEMENT
- RENAME_TAG
- TOGGLE_VISIBILITY
- };
- */
-
-let _id = 1;
-
-export const nextId = () => {
-    return _id;
-}
-
-export const bumpId = () => {
-    _id++;
-}
-
-export const resetId = () => {
-    _id = 1;
-}
-
-export const setId = (id) => {
-    _id = id;
-}
-
-export const addElement = (elementType, parent_id, style, data) => {
-
-    let id = _id++;
-
-    data = data || {}
-
-    return {
-        type: ActionTypes.ADD_ELEMENT,
-        id,
-        parent_id,
-        elementType,
-        style,
-        data
-    }
-}
-
-export const replaceElement = (target_id, elementType, parent_id, style, data) => {
-
-    data = data || {}
-
-    return {
-        type: ActionTypes.REPLACE_ELEMENT,
-        id: target_id,
-        parent_id,
-        elementType,
-        style,
-        data
-    }
-}
-
-export const clearElements = () => {
-
-    return {
-        type: ActionTypes.CLEAR_ELEMENTS,
-    }
-}
-
-export const _setElements = (value) => {
-
-    return {
-        type: ActionTypes.SET_ELEMENTS,
-        value,
-        silent: true,
-    }
-}
-
-export const _applyStyle = (id, style, resolution) => {
-
-    return {
-        type: ActionTypes.APPLY_STYLE,
-        id,
-        style,
-        resolution
-    }
-}
-
-export const applyData = (id, data) => {
-
-    return {
-        type: ActionTypes.APPLY_DATA,
-        id,
-        data
-    }
-}
-
-export const applyDataField = (id, fieldName, fieldType) => {
-
-    return {
-        type: ActionTypes.APPLY_DATA_FIELD,
-        id,
-        fieldName,
-        fieldType
-    }
-}
-
-export const applyStyleField = (id, fieldName, cssKey) => {
-
-    return {
-        type: ActionTypes.APPLY_STYLE_FIELD,
-        id,
-        fieldName,
-        cssKey
-    }
-}
-
-export const applyRole = (id, role) => {
-
-    return {
-        type: ActionTypes.APPLY_ROLE,
-        id,
-        role
-    }
-}
-
-export const applyClass = (id, value) => {
-
-    return {
-        type: ActionTypes.APPLY_CLASS,
-        id,
-        value
-    }
-}
-
-export const applyVars = (id, key, value) => {
-
-    return {
-        type: ActionTypes.APPLY_VARS,
-        id,
-        key,
-        value
-    }
-}
-
-export const clearVars = (id, key) => {
-
-    return {
-        type: ActionTypes.CLEAR_VARS,
-        id,
-        key
-    }
-}
-
-export const deleteElement = (id) => {
-
-    return {
-        type: ActionTypes.DELETE_ELEMENT,
-        id,
-    }
-}
-
-
-export const switchElementsOrder = (id1, id2) => {
-    return {
-        type: ActionTypes.SWITCH_ELEMENTS_ORDER,
-        id1,
-        id2
-    }
-}
-
-export const previewData = (id, data) => {
-
-    return {
-        type: ActionTypes.PREVIEW_DATA,
-        id,
-        data,
-        silent: true,
-    }
-}
-
-export const previewStyle = (id, style) => {
-
-    return {
-        type: ActionTypes.PREVIEW_STYLE,
-        id,
-        style,
-        silent: true,
-    }
-}
-
-export const removeElements = (ids) => {
-
-    return {
-        type: ActionTypes.REMOVE_ELEMENTS,
-        ids,
-    }
-}
-
-
-export const renameTag = (id, value) => {
-    return {
-        type: ActionTypes.RENAME_TAG,
-        id,
-        value,
-    }
-}
-
-export const renameLayer = (id, value) => {
-    return {
-        type: ActionTypes.RENAME_LAYER,
-        id,
-        value,
-    }
-}
-
-export const expandView = (id, isClosed) => {
-    return {
-        type: ActionTypes.EXPAND_VIEW,
-        id,
-        isClosed,
-    }
-}
-
-export const loadResolution = (value) => {
-    return {
-        type: ActionTypes.LOAD_RESOLUTION,
-        value,
-    }
-}
-
-export const toggleVisibility = (element_id) => {
-    return {
-        type: ActionTypes.TOGGLE_VISIBILITY,
-        element_id,
-    }
-}
 
 //@formatter:off
 /*
@@ -272,16 +33,16 @@ const addOrReplace = (selected_element_type, selected_element_id, elementType, p
 
     switch (selected_element_type) {
         case ElementTypes.PLACEHOLDER:
-            return replaceElement(selected_element_id, elementType, parent_id, style, data);
+            return actions.replaceElement(selected_element_id, elementType, parent_id, style, data);
         default:
-            return addElement(elementType, parent_id, style, data);
+            return actions.addElement(elementType, parent_id, style, data);
     }
 }
 
 
 const getParentId = (selection) => {
 
-    if (selection.parent_id == 0) {
+    if (selection.parent_id === 0) {
         return selection.selected_element_id;
     }
 
@@ -296,7 +57,7 @@ export const applyStyleToSelected = (style) => {
 
         let selection = getSelection(state);
 
-        let action = applyStyle(selection.parent_id, style);
+        let action = actions.applyStyle(selection.parent_id, style);
 
         dispatch(action);
     }
@@ -313,7 +74,7 @@ export const addPlaceholder = () => {
         const state = flexState;
         const {modeId} = state.appState;
 
-        let action = addElement(ElementTypes.PLACEHOLDER, parent_id, {
+        let action = actions.addElement(ElementTypes.PLACEHOLDER, parent_id, {
             order: maxOrder + 1, flex: 1, backgroundSize: "cover",
             backgroundRepeat: "no-repeat"
         }, {modeId: modeId});
@@ -402,7 +163,7 @@ export const addVerticalView = (rows) => {
         dispatch(action);
 
         for (let row = 0; row < parseInt(rows, 10); row++) {
-            action = addElement(ElementTypes.PLACEHOLDER, root_id, {
+            action = actions.addElement(ElementTypes.PLACEHOLDER, root_id, {
                 order: row + 1,
                 flex: 1,
                 backgroundSize: 'cover'
@@ -449,10 +210,10 @@ export const addVerticalViewBySizes = (sizes) => {
             }
 
 
-            action = addElement(ElementTypes.PLACEHOLDER, root_id, style, {modeId: modeId})
+            action = actions.addElement(ElementTypes.PLACEHOLDER, root_id, style, {modeId: modeId})
             dispatch(action);
 
-            if (row == 0) {
+            if (row === 0) {
                 dispatch(setSelectedElement(action.id, root_id, action.elementType))
                 dispatch(refreshSelector(20));
             }
@@ -481,7 +242,7 @@ export const addHorizontalView = (columns) => {
         dispatch(action);
 
         for (let col = 0; col < parseInt(columns, 10); col++) {
-            action = addElement(ElementTypes.PLACEHOLDER, root_id, {
+            action = actions.addElement(ElementTypes.PLACEHOLDER, root_id, {
                 flex: 1,
                 order: col + 1
             }, {modeId: modeId})
@@ -529,11 +290,11 @@ export const addHorizontalViewBySizes = (sizes) => {
             size.height = '50px';
 
 
-            action = addElement(ElementTypes.PLACEHOLDER, root_id, style, {modeId: modeId})
+            action = actions.addElement(ElementTypes.PLACEHOLDER, root_id, style, {modeId: modeId})
 
             dispatch(action);
 
-            if (col == 0) {
+            if (col === 0) {
                 dispatch(setSelectedElement(action.id, root_id, action.elementType))
                 dispatch(refreshSelector(20));
             }
@@ -624,75 +385,6 @@ export const addPlaceholderToRoot = () => {
     }
 }
 
-export const injectSnippet = (rootId, rootParentId, rootOrder, snippet) => {
-    return (dispatch, getState) => {
-
-        const state = getFlexState(getState());
-        let action, reIndexMap = {}, actions = [];
-
-        // for voice
-        // dispatch(setComponentRoot(rootId));
-
-        const ids = treeOperations.treeElementIds(state, rootId);
-
-        dispatch(removeElements(ids));
-
-        const maxId = treeOperations.getMaxId(getFlexState(getState()).elements.present);
-        setId(maxId + 1);
-
-        let snippetState = clone(snippet.state);
-
-        let elementsToAddIds = Object.keys(snippetState);
-
-        let index = 0;
-        let promises = [];
-
-        while (elementsToAddIds.length) {
-
-            const id = elementsToAddIds.shift();
-            let element = snippetState[id];
-
-            if (index === 0) {
-                element.id = rootId;
-                element.parent_id = rootParentId;
-                element.style.order = rootOrder;
-            } else {
-                const newParentId = reIndexMap[element.parent_id];
-
-                element.parent_id = newParentId;
-            }
-
-            action = addElement(element.elementType, element.parent_id, element.style, element.data);
-            const promise = dispatch(action);
-
-            actions.push(action);
-            promises.push(promise);
-
-            reIndexMap[id] = action.id;
-
-            index++;
-        }
-
-        return Promise.all(promises)
-            .then(() => {
-                return actions;
-            });
-    }
-}
-
-export const injectSnippetToSelected = (snippet) => {
-    return (dispatch, getState) => {
-
-        const state = getFlexState(getState());
-        const {elementSelection} = state;
-        const {id, parent_id} = elementSelection;
-        const order = treeOperations.getElementsOrder(state, id);
-
-        dispatch(injectSnippet(id, parent_id, order, snippet))
-
-    }
-};
-
 export const pasteCopiedStyle = (element) => {
     return (dispatch, getState) => {
 
@@ -700,7 +392,7 @@ export const pasteCopiedStyle = (element) => {
             {copiedStyle, resolution} = appState;
 
         if (copiedStyle) {
-            dispatch(applyStyle(element.id, copiedStyle, resolution));
+            dispatch(actions.applyStyle(element.id, copiedStyle, resolution));
         }
     }
 }
@@ -731,7 +423,7 @@ export const applyStyle = (id, style) => {
         const {appState} = state;
         const {resolution} = appState;
 
-        dispatch(_applyStyle(id, style, resolution));
+        dispatch(actions.applyStyle(id, style, resolution));
     }
 }
 
@@ -741,13 +433,13 @@ export const resetScreen = () => {
         const modeId = getModeId(getFlexState(getState()));
 
         dispatch(setSelectedElement(1, 0, 'VIEW'));
-        dispatch(clearElements());
-        resetId();
+        dispatch(actions.clearElements());
+        actions.resetId();
 
         let action;
 
         // 1
-        action = dispatch(addElement(ElementTypes.VIEW, 0, {
+        action = dispatch(actions.addElement(ElementTypes.VIEW, 0, {
             order: 1,
             flex:1,
             display:'flex',
@@ -757,7 +449,7 @@ export const resetScreen = () => {
         const root_id = action.id;
 
         // 2 [1]
-        const selected_action = addElement(ElementTypes.PLACEHOLDER, root_id, {
+        const selected_action = actions.addElement(ElementTypes.PLACEHOLDER, root_id, {
             order: 1,
             flex:1,
             height: "50px",
@@ -815,7 +507,7 @@ export const paste = () => {
 
         const selectedElement = firstChild(filter(state.elements.present, element => element.id === elementSelection.id));
 
-        if (selectedElement.elementType == 'PLACEHOLDER') {
+        if (selectedElement.elementType === 'PLACEHOLDER') {
             dispatch(pasteCopiedElement(selectedElement));
             dispatch(addUIMessage('Element pasted'));
         } else {
@@ -837,37 +529,6 @@ export const pasteSketch = (clipboardText) => {
             dispatch(applyStyle(elementSelection.id, style));
         }
     }
-}
-
-
-export const runActions = (snippet, targetParentId, maxOrder) => {
-    return (dispatch, getState) => {
-
-        const maxId = nextId();
-
-
-        //console.log('selection -> ', selection);
-        //console.log('maxOrder -> ', maxOrder);
-        //console.log('maxId -> ', maxId);
-
-        let shiftedActions = actionOperations.shiftActions(snippet, maxId, targetParentId);
-
-        shiftedActions.forEach((action, index) => {
-
-            if (index === 0) {
-                action.style.order = maxOrder + 1;
-            }
-
-            setTimeout(() => {
-                dispatch(action);
-            }, index * 100);
-
-            bumpId();
-        });
-
-        bumpId();
-    }
-
 }
 
 export const applyDataContentForCurrentElement = (data) => {
@@ -896,7 +557,7 @@ export const applyDataFieldForCurrentElement = (fieldName, fieldType) => {
         const state = getFlexState(getState());
         const {elementSelection} = state;
 
-        dispatch(applyDataField(elementSelection.id, fieldName, fieldType));
+        dispatch(actions.applyDataField(elementSelection.id, fieldName, fieldType));
     }
 }
 
@@ -907,17 +568,17 @@ export const applyStyleFieldForCurrentElement = (fieldName, cssKey) => {
         const state = getFlexState(getState());
         const {elementSelection} = state;
 
-        dispatch(applyStyleField(elementSelection.id, fieldName, cssKey));
+        dispatch(actions.applyStyleField(elementSelection.id, fieldName, cssKey));
     }
 }
 
 export const setElements = (value) => {
     return (dispatch, getState) => {
 
-        dispatch(_setElements(value));
+        dispatch(actions.setElements(value));
 
         const maxId = treeOperations.getMaxId(getFlexState(getState()).elements.present);
-        setId(maxId + 1);
+        actions.setId(maxId + 1);
     }
 }
 
@@ -938,3 +599,36 @@ export const setStyleField = (fieldName, cssKey) => {
     }
 }
 
+export default {
+    ...actions,
+    addOrReplace,
+    getParentId,
+    applyStyleToSelected,
+    addPlaceholder,
+    manipulateState,
+    addText,
+    addImage,
+    addVerticalView,
+    addVerticalViewBySizes,
+    addHorizontalView,
+    addHorizontalViewBySizes,
+    addView,
+    addDivider,
+    addSnippet,
+    selectRoot,
+    addPlaceholderToRoot,
+    pasteCopiedStyle,
+    pasteCopiedElement,
+    applyStyle,
+    resetScreen,
+    copy,
+    copyStyle,
+    paste,
+    pasteSketch,
+    applyDataContentForCurrentElement,
+    applyDataFieldForCurrentElement,
+    applyStyleFieldForCurrentElement,
+    setElements,
+    setDataField,
+    setStyleField,
+};

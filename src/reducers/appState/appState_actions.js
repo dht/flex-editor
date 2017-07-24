@@ -1,6 +1,6 @@
 import {ActionTypes} from './appState';
 
-import * as treeOperations from '../../_utils/operations/tree-operations';
+import treeOperations from 'lpm-core/utils';
 import clone from 'clone';
 import {getFlexState} from '../utils';
 

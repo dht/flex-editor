@@ -60,7 +60,7 @@
     "clone": "^2.1.1",
     "infinite-surface": "^0.0.28",
     "insert-css": "^2.0.0",
-    "lpm-core": "^0.1.35",
+    "lpm-core": "^0.1.39",
     "material-ui": "^0.17.1",
     "material-ui-extensions": "^0.0.5",
     "project-dashboard": "0.0.15",

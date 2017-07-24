@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import AttributePanel from 'style-panel/StylePanel'
 import {getItem} from '../_utils/operations/tree-operations'
-import {previewStyle, applyStyle, applyData} from '../reducers/elements/elements_actions'
+import actions from '../reducers/elements/elements_actions'
 import {refreshSelector} from '../reducers/elementSelection/elementSelection_actions';
 
 import {getFlexState} from '../reducers/utils';
@@ -29,13 +29,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         previewStyle: (style) => {
             const {elementId} = ownProps;
-            dispatch(previewStyle(elementId, style))
+            dispatch(actions.previewStyle(elementId, style))
             dispatch(refreshSelector(20));
         },
         applyStyle: (style) => {
             const {elementId} = ownProps;
 
-            dispatch(applyStyle(elementId, style))
+            dispatch(actions.applyStyle(elementId, style))
             dispatch(refreshSelector(20));
         },
     }

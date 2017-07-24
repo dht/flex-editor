@@ -1,6 +1,5 @@
 import ElementTypes from '../../../constants/ElementTypes'
-import * as treeOperations from '../../../_utils/operations/tree-operations';
-import {getFlexState} from '../../utils';
+import treeOperations from 'lpm-core/utils';
 
 export const getSelection = (state) => {
 

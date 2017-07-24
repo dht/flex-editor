@@ -3,7 +3,7 @@ import FlexEditor from './FlexEditor'
 
 import editor_thunks from '../reducers/editor_thunks';
 
-import * as treeOperations from '../_utils/operations/tree-operations';
+import treeOperations from 'lpm-core/utils';
 
 import {getFlexState} from '../reducers/utils';
 

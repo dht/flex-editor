@@ -1,7 +1,8 @@
 import {combineReducers} from 'redux'
 
 import appState from './appState/appState'
-import elements from './elements/elements'
+import elements from 'lpm-core/reducers/elements/elements'
+// import elements from './elements/elements'
 import elementSelection from './elementSelection/elementSelection'
 import attributeSelection from './attributeSelection/attributeSelection'
 

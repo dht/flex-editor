@@ -1,10 +1,8 @@
     import {connect} from 'react-redux'
 import {setSelectedElement, refreshSelector} from '../reducers/elementSelection/elementSelection_actions'
-import {applyStyle} from '../reducers/elements/elements_actions'
 import Tree from './Tree'
-import * as treeOperations from '../_utils/operations/tree-operations'
-import {renameTag, renameLayer, expandView, applyClass} from '../reducers/elements/elements_actions'
-import {toggleVisibility} from '../reducers/elements/elements_actions'
+import treeOperations from 'lpm-core/utils'
+import actions from '../reducers/elements/elements_actions'
 
 import {getFlexState} from '../reducers/utils';
 
@@ -54,11 +52,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
             if (element && element.style && element.style.display === 'none') {
 
-                dispatch(applyStyle(element.id, {display: 'block'}));
+                dispatch(actions.applyStyle(element.id, {display: 'block'}));
 
             } else {
 
-                dispatch(applyStyle(element.id, {display: 'none'}));
+                dispatch(actions.applyStyle(element.id, {display: 'none'}));
 
             }
 
@@ -67,19 +65,19 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             ownProps.onHighlight(id);
         },
         rename: (elementId, name) => {
-            dispatch(renameLayer(elementId, name));
+            dispatch(actions.renameLayer(elementId, name));
         },
         renameTag: (elementId, name) => {
-            dispatch(renameTag(elementId, name));
+            dispatch(actions.renameTag(elementId, name));
         },
         applyClass: (elementId, name) => {
-            dispatch(applyClass(elementId, name));
+            dispatch(actions.applyClass(elementId, name));
         },
         expand: (elementId, isClosed) => {
-            dispatch(expandView(elementId, isClosed));
+            dispatch(actions.expandView(elementId, isClosed));
         },
         toggleVisibility: (elementId) => {
-            dispatch(toggleVisibility(elementId));
+            dispatch(actions.toggleVisibility(elementId));
         }
     }
 }

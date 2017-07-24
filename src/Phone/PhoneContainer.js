@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import Phone from './Phone'
 import {Stages} from '../reducers/appState/appState';
 import {getFlexState} from '../reducers/utils';
-import * as treeOperations from '../_utils/operations/tree-operations';
+import treeOperations from 'lpm-core/utils';
 import {
     setSelectedElement,
     setElementRect

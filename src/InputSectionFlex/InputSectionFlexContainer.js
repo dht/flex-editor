@@ -1,9 +1,9 @@
 import {connect} from 'react-redux'
 import InputSectionFlex from './InputSectionFlex'
-import {previewStyle, applyStyle} from '../reducers/elements/elements_actions'
+import actions from '../reducers/elements/elements_actions'
 import {refreshSelector} from '../reducers/elementSelection/elementSelection_actions'
 
-import * as treeOperations from '../_utils/operations/tree-operations';
+import treeOperations from 'lpm-core/utils';
 
 import {getFlexState} from '../reducers/utils';
 
@@ -27,22 +27,22 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         previewStyleParent: (parentId, style) => {
             // console.log('previewStyle -> ', parentId, style);
-            dispatch(previewStyle(parentId, style))
+            dispatch(actions.previewStyle(parentId, style))
             dispatch(refreshSelector(20));
         },
         applyStyleParent: (parentId, style) => {
             // console.log('applyStyle -> ', parentId, style);
-            dispatch(applyStyle(parentId, style))
+            dispatch(actions.applyStyle(parentId, style))
             dispatch(refreshSelector(20));
         },
         previewStyle: (elementId, style) => {
             // console.log('previewStyle -> ', elementId, style);
-            dispatch(previewStyle(elementId, style))
+            dispatch(actions.previewStyle(elementId, style))
             dispatch(refreshSelector(20));
         },
         applyStyle: (elementId, style) => {
             // console.log('applyStyle -> ', elementId, style);
-            dispatch(applyStyle(elementId, style))
+            dispatch(actions.applyStyle(elementId, style))
             dispatch(refreshSelector(20));
         },
     }

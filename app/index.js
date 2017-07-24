@@ -9,22 +9,22 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './components/AppContainer'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import {resetScreen, applyDataFieldForCurrentElement, applyStyleFieldForCurrentElement} from '../src/reducers/elements/elements_actions';
+import actions from '../src/reducers/elements/elements_actions';
 
 injectTapEventPlugin();
 
 let rootElement;
 
-const onEnter = (location) => {
-    store.dispatch(resetScreen());
+const onEnter = () => {
+    store.dispatch(actions.resetScreen());
 
     setTimeout(() => {
-    	store.dispatch(applyDataFieldForCurrentElement('hello'));
-    	store.dispatch(applyStyleFieldForCurrentElement('color1', 'backgroundColor'));
-    	store.dispatch(applyStyleFieldForCurrentElement('color2', 'color'));
-    	store.dispatch(applyStyleFieldForCurrentElement('height', 'height'));
-    	store.dispatch(applyStyleFieldForCurrentElement('fontFamily', 'fontFamily'));
-    	store.dispatch(applyStyleFieldForCurrentElement('', 'fontFamily'));
+    	store.dispatch(actions.applyDataFieldForCurrentElement('hello'));
+    	store.dispatch(actions.applyStyleFieldForCurrentElement('color1', 'backgroundColor'));
+    	store.dispatch(actions.applyStyleFieldForCurrentElement('color2', 'color'));
+    	store.dispatch(actions.applyStyleFieldForCurrentElement('height', 'height'));
+    	store.dispatch(actions.applyStyleFieldForCurrentElement('fontFamily', 'fontFamily'));
+    	store.dispatch(actions.applyStyleFieldForCurrentElement('', 'fontFamily'));
 	}, 3000);
 }
 

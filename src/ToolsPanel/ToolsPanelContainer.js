@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import ToolsPanel from './ToolsPanel';
 import {refreshSelector} from '../reducers/elementSelection/elementSelection_actions';
 
-import * as actions from '../reducers/elements/elements_actions'
+import actions from '../reducers/elements/elements_actions'
 
 const mapStateToProps = (state, ownProps) => {
 	return {

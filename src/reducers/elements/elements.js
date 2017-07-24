@@ -25,6 +25,7 @@ export const ActionTypes = {
     EXPAND_VIEW: `${prefix}EXPAND_VIEW`,
     APPLY_VARS: `${prefix}APPLY_VARS`,
     SET_VARS: `${prefix}SET_VARS`,
+    MERGE_VARS: `${prefix}MERGE_VARS`,
     CLEAR_VARS: `${prefix}CLEAR_VARS`,
     LOAD_RESOLUTION: `${prefix}LOAD_RESOLUTION`,
     TOGGLE_VISIBILITY: `${prefix}TOGGLE_VISIBILITY`,
@@ -53,7 +54,7 @@ export const styleField = (state, action) => {
 }
 
 export const vars = (state, action) => {
-    let newState;
+    let newState, order;
 
     switch (action.type) {
         case ActionTypes.APPLY_VARS:
@@ -65,8 +66,15 @@ export const vars = (state, action) => {
             newState = {...state};
 
             if (action.resolution) {
-                const r = `r${action.resolution}`;
-                newState[r] = {...newState[r], ...action.style};
+                for (let r = action.resolution; r <= 4; r++) {
+                    const r_key = `r${r}`;
+
+                    if (r === action.resolution) {
+                        newState[r_key] = {...newState[r_key], ...action.style};
+                    } else {
+                        newState[r_key] = {...action.style, ...newState[r_key]};
+                    }
+                }
             }
 
             return newState;
@@ -78,14 +86,26 @@ export const vars = (state, action) => {
 
         case ActionTypes.SET_VARS:
 
-            const {order = 1} = action.value || {};
+            order = (action.value || {}).order || 1;
 
             return {
                 ...state,
-                r1: {...action.value},
-                r2: {order},
-                r3: {order},
-                r4: {order},
+                r1: {...action.value, order},
+                r2: {...action.value, order},
+                r3: {...action.value, order},
+                r4: {...action.value, order},
+            }
+
+        case ActionTypes.MERGE_VARS:
+
+            order = (action || {}).order || 1;
+
+            return {
+                ...state,
+                r1: {...state['r1'], ...action.value, order},
+                r2: {...state['r2'], ...action.value, order},
+                r3: {...state['r3'], ...action.value, order},
+                r4: {...state['r4'], ...action.value, order},
             }
     }
 }
@@ -110,6 +130,8 @@ export const data = (state, action) => {
             return newState;
 
         case ActionTypes.SET_VARS:
+        case ActionTypes.MERGE_VARS:
+
             newState = {...state};
             newState.vars = vars(state.vars, action);
             return newState;
@@ -214,6 +236,7 @@ export const element = (state, action) => {
 
         case ActionTypes.APPLY_VARS:
         case ActionTypes.SET_VARS:
+        case ActionTypes.MERGE_VARS:
         case ActionTypes.CLEAR_VARS:
         case ActionTypes.APPLY_DATA:
         case ActionTypes.APPLY_DATA_FIELD:
@@ -326,9 +349,13 @@ export const elements = (state = {}, action) => {
                 newElement.style.order = targetElement.style.order || newElement.style.order;
             }
 
-            newElement.data = data(newElement.data, {
-                type: ActionTypes.SET_VARS,
-                value: newElement.style
+            const {style} = targetElement || {},
+                {order} = style || {};
+
+            newElement.data = data(targetElement.data, {
+                type: ActionTypes.MERGE_VARS,
+                value: action.style,
+                order,
             });
 
             action.newElement = newElement;
