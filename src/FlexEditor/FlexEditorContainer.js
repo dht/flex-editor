@@ -3,7 +3,7 @@ import FlexEditor from './FlexEditor'
 
 import editor_thunks from '../reducers/editor_thunks';
 
-import treeOperations from 'lpm-core/utils';
+import {getItem, getRootHeight} from 'lpm-core';
 
 import {getFlexState} from '../reducers/utils';
 
@@ -14,9 +14,10 @@ const mapStateToProps = (state, ownProps) => {
 
     const {drawerOpen} = state.appState;
 
-    const selectedElement = treeOperations.getItem(state.elements.present, elementSelection.id) || {};
-    const selectedElementParent = treeOperations.getItem(state.elements.present, selectedElement.parent_id) || {};
-    const screenHeight = treeOperations.getRootHeight(state) || ownProps.height;
+
+    const selectedElement = getItem(state.elements.present, elementSelection.id) || {};
+    const selectedElementParent = getItem(state.elements.present, selectedElement.parent_id) || {};
+    const screenHeight = getRootHeight(state) || ownProps.height;
 
     return {
         screenHeight,

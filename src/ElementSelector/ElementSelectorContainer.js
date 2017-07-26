@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import ElementSelector from './ElementSelector'
-import actions from '../reducers/elements/elements_actions'
-import { refreshSelector } from '../reducers/elementSelection/elementSelection_actions'
+import actions, { refreshSelector } from 'lpm-core'
 import {getFlexState} from '../reducers/utils';
 
 const mapStateToProps = (state, ownProps) => {

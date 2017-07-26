@@ -1,9 +1,8 @@
 import {connect} from 'react-redux'
 import InputSectionFlex from './InputSectionFlex'
-import actions from '../reducers/elements/elements_actions'
-import {refreshSelector} from '../reducers/elementSelection/elementSelection_actions'
+import actions, {refreshSelector} from 'lpm-core'
 
-import treeOperations from 'lpm-core/utils';
+import treeOperations from 'lpm-core';
 
 import {getFlexState} from '../reducers/utils';
 

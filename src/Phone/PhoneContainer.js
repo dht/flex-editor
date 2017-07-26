@@ -2,11 +2,11 @@ import { connect } from 'react-redux'
 import Phone from './Phone'
 import {Stages} from '../reducers/appState/appState';
 import {getFlexState} from '../reducers/utils';
-import treeOperations from 'lpm-core/utils';
+import treeOperations from 'lpm-core';
 import {
     setSelectedElement,
     setElementRect
-} from '../reducers/elementSelection/elementSelection_actions'
+} from 'lpm-core'
 import {showAttributePopover, showPlaceholderPopover} from '../reducers/appState/appState_actions'
 
 const mapStateToProps = (state, ownProps) => {

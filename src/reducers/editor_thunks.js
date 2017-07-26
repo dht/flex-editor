@@ -1,13 +1,12 @@
 import * as actions_appState from '../reducers/appState/appState_actions'
+import  actions from 'lpm-core'
+import actions_selection  from 'lpm-core'
 
-import  actions from '../reducers/elements/elements_actions'
-
-import * as actions_selection  from '../reducers/elementSelection/elementSelection_actions'
 import {ActionCreators as UndoActionCreators} from 'redux-undo'
 
 import * as Config from '../constants/Config';
 
-import treeOperations from 'lpm-core/utils';
+import treeOperations from 'lpm-core';
 
 import {getFlexState} from '../reducers/utils';
 

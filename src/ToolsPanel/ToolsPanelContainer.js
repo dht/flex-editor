@@ -1,8 +1,7 @@
 import {connect} from 'react-redux';
 import ToolsPanel from './ToolsPanel';
-import {refreshSelector} from '../reducers/elementSelection/elementSelection_actions';
 
-import actions from '../reducers/elements/elements_actions'
+import actions from 'lpm-core'
 
 const mapStateToProps = (state, ownProps) => {
 	return {
@@ -22,7 +21,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 			}
 
 			dispatch(actions.addPlaceholder());
-			dispatch(refreshSelector(20));
+			dispatch(actions.refreshSelector(20));
 
 		},
 		onAddText: () => {
@@ -33,7 +32,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             }
 
             dispatch(actions.addText());
-			dispatch(refreshSelector(20));
+			dispatch(actions.refreshSelector(20));
 
 		},
 		onAddImage: () => {
@@ -44,7 +43,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             }
 
             dispatch(actions.addImage());
-			dispatch(refreshSelector(200));
+			dispatch(actions.refreshSelector(200));
 
 		},
 
@@ -58,7 +57,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             if (rows == 99) {
 				let sizes = prompt("Enter sizes:");
 				dispatch(actions.addVerticalViewBySizes(sizes.split(',')));
-				dispatch(refreshSelector(20));
+				dispatch(actions.refreshSelector(20));
 				return;
 			}
 
@@ -75,7 +74,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             if (columns == 99) {
 				let sizes = prompt("Enter sizes:");
 				dispatch(actions.addHorizontalViewBySizes(sizes.split(',')));
-				dispatch(refreshSelector(20));
+				dispatch(actions.refreshSelector(20));
 				return;
 			}
 
@@ -89,7 +88,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             }
 
             dispatch(actions.addDivider());
-            dispatch(refreshSelector(20));
+            dispatch(actions.refreshSelector(20));
 		},
         onAddSnippet: () => {
             if (ownProps.onAddSnippet) {
@@ -98,7 +97,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             }
 
             dispatch(actions.addSnippet());
-            dispatch(refreshSelector(20));
+            dispatch(actions.refreshSelector(20));
         }
 
 	}

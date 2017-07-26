@@ -1,5 +1,5 @@
 import ElementTypes from '../../../constants/ElementTypes'
-import treeOperations from 'lpm-core/utils';
+import treeOperations from 'lpm-core';
 
 export const getSelection = (state) => {
 

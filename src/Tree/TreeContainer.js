@@ -1,14 +1,14 @@
     import {connect} from 'react-redux'
-import {setSelectedElement, refreshSelector} from '../reducers/elementSelection/elementSelection_actions'
 import Tree from './Tree'
-import treeOperations from 'lpm-core/utils'
-import actions from '../reducers/elements/elements_actions'
+import treeOperations from 'lpm-core'
+import actions, {setSelectedElement, refreshSelector} from 'lpm-core'
 
 import {getFlexState} from '../reducers/utils';
 
 const mapStateToProps = (state, ownProps) => {
 
     state = getFlexState(state);
+
     const {appState} = state;
 
     const present = state.elements.present,

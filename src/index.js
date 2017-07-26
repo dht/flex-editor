@@ -1,4 +1,4 @@
-import {ActionTypes as ActionTypesElements} from './reducers/elements/elements';
+import {ActionTypesElements} from 'lpm-core';
 import {ActionTypes as ActionTypesAppState} from './reducers/appState/appState';
 import flexState from './reducers/index';
 import ElementTypes from './constants/ElementTypes';
@@ -19,23 +19,26 @@ import {
 
 
 import {
+    setDataField,
+    setStyleField,
+} from './reducers/elements/elements_actions';
+
+import {
     addView,
     addElement,
     setElements,
     resetScreen,
-    setDataField,
-    setStyleField,
     loadResolution,
     applyClass,
     applyVars,
     applyData,
     addSnippet,
-} from './reducers/elements/elements_actions';
+} from 'lpm-core';
 
 import {
     refreshSelector,
     setSelectedElement,
-} from './reducers/elementSelection/elementSelection_actions';
+} from 'lpm-core';
 
 export default {
     ActionTypesElements,

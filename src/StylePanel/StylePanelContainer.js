@@ -1,8 +1,8 @@
 import {connect} from 'react-redux'
 import AttributePanel from 'style-panel/StylePanel'
-import {getItem} from '../_utils/operations/tree-operations'
-import actions from '../reducers/elements/elements_actions'
-import {refreshSelector} from '../reducers/elementSelection/elementSelection_actions';
+import {getItem} from 'lpm-core'
+import actions from 'lpm-core'
+import {refreshSelector} from 'lpm-core';
 
 import {getFlexState} from '../reducers/utils';
 

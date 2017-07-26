@@ -9,7 +9,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './components/AppContainer'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import actions from '../src/reducers/elements/elements_actions';
+import actions from 'lpm-core';
 
 injectTapEventPlugin();
 

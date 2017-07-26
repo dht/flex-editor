@@ -1,52 +1,52 @@
 import {connect} from 'react-redux'
 import InputData from './InputData'
-import actions from '../reducers/elements/elements_actions'
+import actions from 'lpm-core'
 import {showAttributePopover, showDataFieldModal} from '../reducers/appState/appState_actions'
 import {getFlexState} from '../reducers/utils';
-import treeOperations from 'lpm-core/utils';
+import treeOperations from 'lpm-core';
 
 const mapStateToProps = (state, ownProps) => {
 
     state = getFlexState(state);
 
-	const {elementSelection } = state;
+    const {elementSelection} = state;
 
-	const { appState } = state;
-	const { showDataButtons } = appState;
+    const {appState} = state;
+    const {showDataButtons} = appState;
 
-		const selectedElement = treeOperations.getItem(state.elements.present, elementSelection.id) || {};
+    const selectedElement = treeOperations.getItem(state.elements.present, elementSelection.id) || {};
 
-	const {data = {}} = selectedElement;
-	return {
-		selectedElement,
-		data,
+    const {data = {}} = selectedElement;
+    return {
+        selectedElement,
+        data,
         showDataButtons,
-	}
+    }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 
-	return {
-		applyDataToSelected: (content) => {
-			dispatch(actions.applyDataContentForCurrentElement(content));
-		},
-		previewDataInSelected: (data) => {
-			const {elementId} = ownProps;
+    return {
+        applyDataToSelected: (content) => {
+            dispatch(actions.applyDataContentForCurrentElement(content));
+        },
+        previewDataInSelected: (data) => {
+            const {elementId} = ownProps;
 
-			dispatch(actions.previewData(elementId, data));
-		},
-		onDone: () => {
-			dispatch(showAttributePopover(false));
-		},
-        showDataFieldModal:() => {
-			dispatch(showDataFieldModal(true));
-		}
-	}
+            dispatch(actions.previewData(elementId, data));
+        },
+        onDone: () => {
+            dispatch(showAttributePopover(false));
+        },
+        showDataFieldModal: () => {
+            dispatch(showDataFieldModal(true));
+        }
+    }
 }
 
 const InputDataContainer = connect(
-	mapStateToProps,
-	mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(InputData)
 
 export default InputDataContainer
