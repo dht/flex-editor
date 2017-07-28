@@ -17,6 +17,7 @@ const initialState = {
     stage: null,
     showAttributePopover: false,
     showPlaceholderPopover: false,
+    showSnippetPopover: false,
     showDataButtons: false,
     showSelection: true,
     modeId: 0,
@@ -53,6 +54,7 @@ export const ActionTypes = {
     ADD_VERSION_INFO: `${prefix}ADD_VERSION_INFO`,
     SHOW_ATTRIBUTE_POPOVER: `${prefix}SHOW_ATTRIBUTE_POPOVER`,
     SHOW_PLACEHOLDER_POPOVER: `${prefix}SHOW_PLACEHOLDER_POPOVER`,
+    SHOW_SNIPPET_POPOVER: `${prefix}SHOW_SNIPPET_POPOVER`,
     SHOW_SELECTION: `${prefix}SHOW_SELECTION`,
     SET_COPIED_STYLE: `${prefix}SET_COPIED_STYLE`,
     SET_COPIED_ELEMENT: `${prefix}SET_COPIED_ELEMENT`,
@@ -169,6 +171,12 @@ export const appState = (state = initialState, action) => {
                 showPlaceholderPopover: action.value
             }
 
+        case ActionTypes.SHOW_SNIPPET_POPOVER:
+            return {
+                ...state,
+                showSnippetPopover: action.value
+            }
+
         case ActionTypes.SHOW_DATA_BUTTONS:
             return {
                 ...state,
@@ -223,6 +231,7 @@ export const appState = (state = initialState, action) => {
                 styleFieldModalOn: null,
                 styleFieldModalCssField: '',
                 showPlaceholderPopover: null,
+                showSnippetPopover: null,
             }
 
         case ActionTypes.OPEN_DRAWER:

@@ -7,7 +7,7 @@ import {
     setSelectedElement,
     setElementRect
 } from 'lpm-core'
-import {showAttributePopover, showPlaceholderPopover} from '../reducers/appState/appState_actions'
+import {showAttributePopover, showPlaceholderPopover, showSnippetPopover} from '../reducers/appState/appState_actions'
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -52,8 +52,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             if (element_type === 'TEXT' || element_type === 'IMAGE') {
                 dispatch(showAttributePopover(true));
             }
+
             if (element_type === 'PLACEHOLDER') {
                 dispatch(showPlaceholderPopover(true));
+            }
+
+            if (element_type === 'SNIPPET') {
+                dispatch(showSnippetPopover(true));
             }
         }
     }

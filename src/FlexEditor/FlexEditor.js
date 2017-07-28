@@ -9,6 +9,7 @@ import Drawer from 'material-ui-extensions/Drawer';
 import Tabs from '../Tree/inner';
 import MessagePanel from '../MessagePanel';
 import PropTypes from 'prop-types';
+import FlatButton from 'material-ui/FlatButton';
 
 import {bigScreen} from '../_utils/utils';
 
@@ -53,12 +54,12 @@ export default class FlexEditor extends React.Component {
     setColorsAndFonts(props) {
         const {colors, fonts} = props;
 
-        if (colors && this.state.colors !== colors) {
+        if (colors && this.state.colors != colors) {
             this.props.setColors(colors);
             this.setState({colors});
         }
 
-        if (fonts && this.state.fonts !== fonts) {
+        if (fonts && this.state.fonts != fonts) {
             this.props.setFonts(fonts);
             this.setState({fonts});
         }
@@ -194,10 +195,11 @@ export default class FlexEditor extends React.Component {
                 onHighlight={ id => this.setState({highlighted: id}) }
                 id={1}/>
 
-            {!hideTreeTabs ?
+
                 <div style={styles.treeToggleLinks}>
-                    <Tabs />
-                </div> : null}
+                    {!hideTreeTabs ?<Tabs />: null}
+                </div>
+
         </Drawer>
     }
 
@@ -308,7 +310,6 @@ const styles = {
         bottom: 0,
         left: 0,
         right: 0,
-        height: '45px',
     },
     lightButton: {
         backgroundColor: 'rgb(236, 236, 236)',

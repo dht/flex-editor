@@ -3190,9 +3190,9 @@ loud-rejection@^1.0.0:
     currently-unhandled "^0.4.1"
     signal-exit "^3.0.0"
 
-lpm-core@^0.1.60:
-  version "0.1.60"
-  resolved "https://registry.yarnpkg.com/lpm-core/-/lpm-core-0.1.60.tgz#deac718c4758c900c0ff6396b2c12eaf36e38eca"
+lpm-core@^0.1.76:
+  version "0.1.76"
+  resolved "https://registry.yarnpkg.com/lpm-core/-/lpm-core-0.1.76.tgz#89f4533b8f3f566d011f33559fed18d6eb4b13c7"
   dependencies:
     react "^15.4.1"
     react-dom "^15.4.1"

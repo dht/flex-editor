@@ -54,6 +54,14 @@ export const showPlaceholderPopover = (value) => {
     }
 }
 
+export const showSnippetPopover = (value) => {
+
+    return {
+        type: ActionTypes.SHOW_SNIPPET_POPOVER,
+        value,
+    }
+}
+
 export const showSelection = (value) => {
 
     return {
